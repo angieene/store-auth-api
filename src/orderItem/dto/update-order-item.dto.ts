@@ -38,5 +38,4 @@ export class UpdateOrderItemDto {
   @IsString()
   //@IsUUID('all', { each: true, message: 'Not valid Id' })
   productId?: string;
-  sdas?: string;
 }

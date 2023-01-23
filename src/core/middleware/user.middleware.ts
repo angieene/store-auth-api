@@ -1,39 +1,14 @@
-import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import * as bodyParser from 'body-parser';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { UserRepository } from 'src/users/user.repository';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(
-    @InjectRepository(UserEntity)
-    private userEntity: Repository<UserEntity>,
-  ) {}
-  //private logger = new Logger('HTTP');
-
+  constructor(private userRepository: UserRepository) {}
   async use(req: Request, res: Response, next: NextFunction) {
-    // const { ip, method, path: url } = req;
-    // const userAgent = req.get('user-agent') || '';
-
-    // res.on('close', () => {
-    //   const { statusCode } = res;
-    //   const contentLength = res.get('content-length');
-
-    //   console.log(
-    //     `${method} ${url} ${statusCode} ${contentLength} - ${userAgent} ${ip}`,
-    //   );
-    // });
-
     const { userId } = req.params;
 
-    await this.userEntity
-      .createQueryBuilder()
-      .update('users')
-      .set({ firstname: 'middleware' })
-      .where({ id: userId })
-      .execute();
+    await this.userRepository.updateUserFirstname(userId);
 
     next();
   }

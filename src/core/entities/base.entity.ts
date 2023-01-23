@@ -23,10 +23,4 @@ export abstract class BaseEntity {
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
-
-  // @BeforeInsert() hashPassword() {
-  //   const { nanoid } = require('nanoid');
-  //   this.id = nanoid();
-  // }
-  //@PrimaryColumn({ type: 'varchar', unique: true })
 }

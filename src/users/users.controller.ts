@@ -17,18 +17,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginateUsersDto } from './dto/paginate-user.dto';
-
 import { Roles } from 'src/auth/decorator/role.decorator';
-import { User } from './decorator/user.decorator';
-import { Role } from 'src/core/enums/userRoles.enum';
 import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { UserEntity } from './entities/user.entity';
+import { Role } from 'src/core/enums/userRoles.enum';
 import { IPositiveRequest } from 'src/core/types/main';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipes';
+import { User } from './decorator/user.decorator';
+import { PaginateUsersDto } from './dto/paginate-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './entities/user.entity';
+import { UsersService } from './users.service';
 
 @ApiTags('User')
 @Controller('users')

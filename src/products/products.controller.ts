@@ -18,18 +18,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { ProductsService } from './products.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { PaginateProductsDto } from './dto/paginate-products.dto';
-
+import { Roles } from 'src/auth/decorator/role.decorator';
 import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { Roles } from 'src/auth/decorator/role.decorator';
 import { Role } from 'src/core/enums/userRoles.enum';
-import { ProductEntity } from './entities/product.entity';
 import { IPositiveRequest } from 'src/core/types/main';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipes';
+import { CreateProductDto } from './dto/create-product.dto';
+import { PaginateProductsDto } from './dto/paginate-products.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductEntity } from './entities/product.entity';
+import { ProductsService } from './products.service';
 
 @ApiTags('Products')
 @Controller('products')

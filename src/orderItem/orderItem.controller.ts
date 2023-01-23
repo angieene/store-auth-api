@@ -9,7 +9,6 @@ import {
   UseGuards,
   HttpStatus,
   Query,
-  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -19,17 +18,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { CreateOrderItemDto } from './dto/create-order-item.dto';
-import { UpdateOrderItemDto } from './dto/update-order-item.dto';
-import { PaginateOrdersItemDto } from './dto/paginate-orders-item.dto';
-
-import { UserEntity } from 'src/users/entities/user.entity';
 import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { OrderItemService } from './orderItem.service';
-import { OrderItemEntity } from './entities/orderItem.entity';
-import { User } from 'src/users/decorator/user.decorator';
 import { IPositiveRequest } from 'src/core/types/main';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipes';
+import { User } from 'src/users/decorator/user.decorator';
+import { UserEntity } from 'src/users/entities/user.entity';
+import { CreateOrderItemDto } from './dto/create-order-item.dto';
+import { PaginateOrdersItemDto } from './dto/paginate-orders-item.dto';
+import { UpdateOrderItemDto } from './dto/update-order-item.dto';
+
+import { OrderItemEntity } from './entities/orderItem.entity';
+import { OrderItemService } from './orderItem.service';
 
 @ApiTags('Order item')
 @Controller('orderItem')
@@ -49,8 +48,6 @@ export class OrderItemController {
     @User() user: UserEntity,
     @Body() createOrderItemDto: CreateOrderItemDto,
   ): Promise<IPositiveRequest> {
-    console.log(createOrderItemDto);
-
     return this.orderItemService.create(user, createOrderItemDto);
   }
 

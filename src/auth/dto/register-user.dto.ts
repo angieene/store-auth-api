@@ -15,26 +15,26 @@ export class RegisterUserDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(200)
-  readonly firstname: string;
+  firstname: string;
 
   @ApiProperty({ type: String, name: 'lastname', required: true })
   @IsNotEmpty()
   @IsString()
   @MaxLength(200)
-  readonly lastname: string;
+  lastname: string;
 
   @ApiProperty({ type: String, name: 'email', required: true })
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @ApiProperty({ type: String, name: 'password', required: true })
   @IsString()
   @IsNotEmpty()
   @MinLength(5)
   @MaxLength(4000)
-  readonly password: string;
+  password: string;
 
   @ApiProperty({
     enumName: 'RolesEnum',
@@ -44,5 +44,5 @@ export class RegisterUserDto {
   })
   @IsOptional()
   @IsEnum(Role)
-  readonly role: Role[];
+  role: Role[];
 }

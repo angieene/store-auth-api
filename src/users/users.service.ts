@@ -1,106 +1,45 @@
-import {
-  BadRequestException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
+import { Injectable } from '@nestjs/common';
 import { IPositiveRequest } from 'src/core/types/main';
+
 import { PaginateUsersDto } from './dto/paginate-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(UserEntity)
-    private userEntity: Repository<UserEntity>,
-  ) {}
+  constructor(private userRepository: UserRepository) {}
 
   async findAll(): Promise<UserEntity[]> {
-    return await this.userEntity
-      .createQueryBuilder('users')
-      .orderBy('users.id', 'ASC')
-      .getMany();
+    return this.userRepository.findAll();
   }
 
   async findAllPaginate(
     paginateUsersDto: PaginateUsersDto,
   ): Promise<UserEntity[]> {
-    const { pageSize, page } = paginateUsersDto;
-
-    return this.userEntity
-      .createQueryBuilder('products')
-      .orderBy('products.id', 'ASC')
-      .take(pageSize)
-      .skip((page - 1) * pageSize)
-      .getMany();
+    return this.userRepository.findAllPaginate(paginateUsersDto);
   }
 
   async findOneById(userId: string): Promise<UserEntity> {
-    const searchUser = await this.userEntity.findOne({ where: { id: userId } });
-
-    if (!searchUser) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return searchUser;
+    return this.userRepository.findOneById(userId);
   }
 
   async findOneByEmail(userEmail: string): Promise<UserEntity> {
-    const user = this.userEntity.findOne({
-      where: { email: userEmail },
-      select: {
-        password: true,
-      },
-    });
-
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-    }
-
-    return user;
+    return this.userRepository.findOneByEmail(userEmail);
   }
 
   async update(
     user: UserEntity,
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
-    const equalEmail = this.findOneByEmail(user.email);
-
-    if (equalEmail) {
-      throw new BadRequestException('Email is already used');
-    }
-
-    Object.assign(user, updateUserDto);
-    user.updatedAt = new Date();
-
-    await this.userEntity.save(user);
-
-    return user;
+    return this.userRepository.update(user, updateUserDto);
   }
 
   async findByPayload({ email }): Promise<UserEntity> {
-    return this.userEntity.findOne({
-      where: { email },
-    });
+    return this.userRepository.findByPayload(email);
   }
 
   async remove(userId: string): Promise<IPositiveRequest> {
-    const deletedUser = await this.userEntity
-      .createQueryBuilder('users')
-      .delete()
-      .from('users')
-      .where({ id: userId })
-      .execute();
-
-    if (deletedUser.affected === 0) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-
-    return {
-      success: true,
-    };
+    return this.userRepository.remove(userId);
   }
 }

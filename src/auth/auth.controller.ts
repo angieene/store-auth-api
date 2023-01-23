@@ -4,7 +4,6 @@ import {
   Body,
   Get,
   HttpStatus,
-  ValidationPipe,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -15,15 +14,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { LoginUserDTO } from './dto/login-user.dto';
-import { RegisterUserDto } from './dto/register-user.dto';
-
 import { IPositiveRequest } from 'src/core/types/main';
 import { TokenType } from 'src/core/types/token.interface';
 import { User } from 'src/users/decorator/user.decorator';
 import { UserEntity } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
+import { CreateAuthDto } from './dto/create-auth.dto';
+import { LoginUserDTO } from './dto/login-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 import { JWTAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('Authorization')

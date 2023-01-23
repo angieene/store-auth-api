@@ -1,24 +1,3 @@
-// import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
-
-// export const getTypeOrmAsyncConfig = (): TypeOrmModuleAsyncOptions => {
-//   return {
-//     imports: [ConfigModule],
-//     inject: [ConfigService],
-//     useFactory: (configService: ConfigService) => {
-//       return {
-//         type: 'postgres',
-//         host: 'localhost',
-//         port: 5432,
-//         username: 'postgres',
-//         password: 'Pa5swordOK',
-//         database: 'test',
-//         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-//         synchronize: true,
-//       };
-//     },
-//   };
-// };
-
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 require('dotenv').config();
@@ -40,15 +19,6 @@ class ConfigService {
     return this;
   }
 
-  // public getPort() {
-  //   return this.getValue('PORT', true);
-  // }
-
-  // public isProduction() {
-  //   const mode = this.getValue('MODE', false);
-  //   return mode != 'DEV';
-  // }
-
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
       type: 'postgres',
@@ -61,16 +31,6 @@ class ConfigService {
       synchronize: true,
 
       entities: ['dist/**/*.entity.js'],
-
-      // migrationsTableName: 'migration',
-
-      // migrations: ['src/migration/*.ts'],
-
-      // cli: {
-      //   migrationsDir: 'src/migration',
-      // },
-
-      // ssl: this.isProduction(),
     };
   }
 }

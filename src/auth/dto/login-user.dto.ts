@@ -6,10 +6,10 @@ export class LoginUserDTO {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @ApiProperty({ type: String, name: 'password', required: true })
   @IsNotEmpty()
   @MinLength(5)
-  readonly password: string;
+  password: string;
 }

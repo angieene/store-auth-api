@@ -6,5 +6,5 @@ export class CreateAuthDto implements IToken {
     type: String,
     name: 'accessToken',
   })
-  readonly accessToken: string;
+  accessToken: string;
 }

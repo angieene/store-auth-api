@@ -14,19 +14,19 @@ export class GetProfileDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(200)
-  readonly firstname: string;
+  firstname: string;
 
   @ApiProperty({ type: String, name: 'lastname', required: true })
   @IsNotEmpty()
   @IsString()
   @MaxLength(200)
-  readonly lastname: string;
+  lastname: string;
 
   @ApiProperty({ type: String, name: 'email', required: true })
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @ApiProperty({
     enumName: 'RolesEnum',
@@ -36,5 +36,5 @@ export class GetProfileDto {
   })
   @IsOptional()
   @IsEnum(Role)
-  readonly role: Role[];
+  role: Role[];
 }

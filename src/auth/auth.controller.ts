@@ -4,7 +4,6 @@ import {
   Body,
   Get,
   HttpStatus,
-  UsePipes,
   ValidationPipe,
   UseGuards,
 } from '@nestjs/common';
@@ -43,7 +42,6 @@ export class AuthController {
   })
   @ApiBody({ type: LoginUserDTO })
   @Post('login')
-  @UsePipes(new ValidationPipe())
   async login(@Body() loginUserDto: LoginUserDTO): Promise<TokenType> {
     return await this.authService.login(loginUserDto);
   }
@@ -59,7 +57,6 @@ export class AuthController {
     description: 'Email is already exist',
   })
   @Post('register')
-  @UsePipes(new ValidationPipe())
   async create(
     @Body() createUserDto: RegisterUserDto,
   ): Promise<IPositiveRequest> {

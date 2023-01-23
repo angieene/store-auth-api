@@ -13,7 +13,6 @@ import { RegisterUserDto } from './dto/register-user.dto';
 
 import { UsersService } from 'src/users/users.service';
 import { UserEntity } from 'src/users/entities/user.entity';
-import { IToken } from './types/token.interface';
 import { IPositiveRequest } from 'src/core/types/main';
 import * as bcrypt from 'bcrypt';
 import { TokenType } from 'src/core/types/token.interface';

@@ -9,7 +9,6 @@ import {
   UseGuards,
   HttpStatus,
   Query,
-  UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import {
@@ -50,6 +49,8 @@ export class OrderItemController {
     @User() user: UserEntity,
     @Body() createOrderItemDto: CreateOrderItemDto,
   ): Promise<IPositiveRequest> {
+    console.log(createOrderItemDto);
+
     return this.orderItemService.create(user, createOrderItemDto);
   }
 
@@ -85,7 +86,6 @@ export class OrderItemController {
     type: OrderItemEntity,
     isArray: true,
   })
-  @UsePipes(new ValidationPipe())
   @UseGuards(JWTAuthGuard)
   @Get(':orderItemId')
   async findOne(
@@ -101,7 +101,6 @@ export class OrderItemController {
     status: HttpStatus.NOT_FOUND,
     description: 'Product is not enough',
   })
-  @UsePipes(new ValidationPipe())
   @UseGuards(JWTAuthGuard)
   @Patch(':orderItemId')
   async update(
@@ -117,7 +116,6 @@ export class OrderItemController {
     status: HttpStatus.NOT_FOUND,
     description: 'Order is not exist',
   })
-  @UsePipes(new ValidationPipe())
   @UseGuards(JWTAuthGuard)
   @Delete(':orderItemId')
   async remove(

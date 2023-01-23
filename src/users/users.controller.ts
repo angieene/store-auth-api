@@ -8,8 +8,6 @@ import {
   UseGuards,
   HttpStatus,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -63,7 +61,6 @@ export class UsersController {
     status: HttpStatus.NOT_FOUND,
     description: 'User not found',
   })
-  @UsePipes(new ValidationPipe())
   @Get(':userId')
   async findOne(
     @Param('userId', IdValidationPipe) userId: string,
@@ -93,7 +90,6 @@ export class UsersController {
     status: HttpStatus.NOT_FOUND,
     description: 'User not found',
   })
-  @UsePipes(new ValidationPipe())
   @Roles(Role.Admin)
   @UseGuards(JWTAuthGuard, RolesGuard)
   @Delete(':userId')

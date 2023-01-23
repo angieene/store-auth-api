@@ -9,8 +9,6 @@ import {
   UseGuards,
   HttpStatus,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -69,7 +67,6 @@ export class ProductsController {
     status: HttpStatus.OK,
     type: ProductEntity,
   })
-  @UsePipes(new ValidationPipe())
   @Get(':productId')
   async findOne(
     @Param('productId', IdValidationPipe) productId: string,
@@ -80,7 +77,6 @@ export class ProductsController {
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Update one product' })
   @ApiBody({ type: UpdateProductDto })
-  @UsePipes(new ValidationPipe())
   @Roles(Role.Admin)
   @UseGuards(JWTAuthGuard, RolesGuard)
   @Patch(':productId')
@@ -93,7 +89,6 @@ export class ProductsController {
 
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Delete one product' })
-  @UsePipes(new ValidationPipe())
   @Roles(Role.Admin)
   @UseGuards(JWTAuthGuard, RolesGuard)
   @Delete(':productId')

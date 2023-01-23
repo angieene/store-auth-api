@@ -30,12 +30,12 @@ export class UpdateOrderItemDto {
   @ApiPropertyOptional({ type: String, name: 'userId' })
   @IsString()
   @IsOptional()
-  // @IsUUID('all', { each: true, message: 'Not valid Id' })
+  @IsUUID('all', { each: true, message: 'Not valid Id' })
   userId?: string;
 
   @ApiProperty({ type: String, name: 'productId' })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  //@IsUUID('all', { each: true, message: 'Not valid Id' })
+  @IsUUID('all', { each: true, message: 'Not valid Id' })
   productId?: string;
 }

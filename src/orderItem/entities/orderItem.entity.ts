@@ -28,7 +28,10 @@ export class OrderItemEntity extends BaseEntity {
   productId: string;
 
   @ApiProperty({ type: () => ProductEntity, required: false })
-  @OneToOne(() => ProductEntity)
+  @OneToOne(() => ProductEntity, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   product: ProductEntity;
 

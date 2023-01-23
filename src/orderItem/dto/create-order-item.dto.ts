@@ -31,12 +31,12 @@ export class CreateOrderItemDto {
   @ApiPropertyOptional({ type: String, name: 'userId' })
   @IsString()
   @IsOptional()
-  @IsUUID('all', { message: 'Not valid Id' })
+  @IsUUID('all', { each: true, message: 'Not valid Id' })
   userId: string;
 
   @ApiProperty({ type: String, name: 'productId', required: true })
   @IsNotEmpty()
   @IsString()
-  @IsUUID('all', { message: 'Not valid Id' })
+  @IsUUID('all', { each: true, message: 'Not valid Id' })
   productId!: string;
 }

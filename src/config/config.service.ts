@@ -40,14 +40,14 @@ class ConfigService {
     return this;
   }
 
-  public getPort() {
-    return this.getValue('PORT', true);
-  }
+  // public getPort() {
+  //   return this.getValue('PORT', true);
+  // }
 
-  public isProduction() {
-    const mode = this.getValue('MODE', false);
-    return mode != 'DEV';
-  }
+  // public isProduction() {
+  //   const mode = this.getValue('MODE', false);
+  //   return mode != 'DEV';
+  // }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
@@ -58,6 +58,7 @@ class ConfigService {
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
+      synchronize: true,
 
       entities: ['dist/**/*.entity.js'],
 

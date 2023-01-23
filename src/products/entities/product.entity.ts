@@ -26,9 +26,6 @@ export class ProductEntity extends BaseEntity {
   @Column({ type: 'varchar', length: '400', nullable: true })
   description: string;
 
-  @OneToOne(() => OrderItemEntity, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => OrderItemEntity)
   order: OrderItemEntity;
 }

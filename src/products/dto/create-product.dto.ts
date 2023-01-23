@@ -16,13 +16,13 @@ export class CreateProductDto {
   @MaxLength(400)
   name: string;
 
-  @ApiProperty({ type: Number, name: 'stock', required: true })
+  @ApiProperty({ type: Number, name: 'stock', required: true, default: 1 })
   @IsNotEmpty()
   @Min(1)
   @IsNumber()
   stock: number;
 
-  @ApiProperty({ type: Number, name: 'price', required: true })
+  @ApiProperty({ type: Number, name: 'price', required: true, default: 1 })
   @IsNotEmpty()
   @IsNumber()
   @Min(1)

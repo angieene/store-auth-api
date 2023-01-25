@@ -96,7 +96,6 @@ export class UserRepository {
         HttpStatus.NOT_FOUND,
       );
     }
-    return user;
   }
 
   async update(

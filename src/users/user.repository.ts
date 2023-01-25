@@ -8,6 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
+
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { IPositiveRequest } from 'src/core/types/main';
 import { PaginateUsersDto } from './dto/paginate-user.dto';
@@ -62,6 +63,7 @@ export class UserRepository {
     if (!searchUser) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+    return searchUser;
   }
 
   async findOnlyPassword(userEmail: string): Promise<UserEntity> {
@@ -150,10 +152,6 @@ export class UserRepository {
     if (deletedUser.affected === 0) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-
-    return {
-      success: true,
-    };
   }
 
   async updateUserFirstname(userId: string) {

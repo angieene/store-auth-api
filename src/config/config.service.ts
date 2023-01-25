@@ -1,5 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+/* eslint-disable */
+require('dotenv').config();
+
 class ConfigService {
   constructor(private env: { [k: string]: string | undefined }) {}
 

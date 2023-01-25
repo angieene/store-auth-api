@@ -24,6 +24,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/core/enums/userRoles.enum';
 import { IPositiveRequest } from 'src/core/types/main';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipes';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { PaginateProductsDto } from './dto/paginate-products.dto';
 import { UpdateProductDto } from './dto/update-product.dto';

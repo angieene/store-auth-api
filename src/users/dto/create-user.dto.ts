@@ -8,6 +8,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+
 import { Role } from 'src/core/enums/userRoles.enum';
 
 export class CreateUserDto {

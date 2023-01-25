@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
+
 import { BaseEntity } from 'src/core/entities/base.entity';
 import { Role } from 'src/core/enums/userRoles.enum';
 import { OrderItemEntity } from 'src/orderItem/entities/orderItem.entity';

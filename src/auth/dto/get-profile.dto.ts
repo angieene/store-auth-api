@@ -7,6 +7,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+
 import { Role } from 'src/core/enums/userRoles.enum';
 
 export class GetProfileDto {

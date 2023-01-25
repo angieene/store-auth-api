@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { IPositiveRequest } from 'src/core/types/main';
+
 import { PaginateUsersDto } from './dto/paginate-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -96,6 +97,7 @@ export class UserRepository {
         HttpStatus.NOT_FOUND,
       );
     }
+    return user;
   }
 
   async update(

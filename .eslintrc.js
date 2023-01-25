@@ -35,6 +35,7 @@ module.exports = {
               'sibling',
               'index',
             ],
+            'newlines-between': 'always',
             pathGroupsExcludedImportTypes: ["internal"],
             alphabetize: {
               order: 'asc',

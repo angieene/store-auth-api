@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { Role } from 'src/core/enums/userRoles.enum';
 
+import { Role } from 'src/core/enums/userRoles.enum';
 import { IPositiveRequest } from 'src/core/types/main';
 import { TokenType } from 'src/core/types/token.interface';
 import { UserRepository } from 'src/users/user.repository';

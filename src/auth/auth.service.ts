@@ -14,7 +14,6 @@ import { UserRepository } from 'src/users/user.repository';
 
 import { LoginUserDTO } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { IToken } from './types/token.interface';
 
 @Injectable()
 export class AuthService {
@@ -42,18 +41,21 @@ export class AuthService {
       );
     }
 
-    const tokens = await this.getTokens(id, email, role);
+    const tokens: TokenType = await this.getTokens(id, email, role);
     await this.updateRefreshToken(id, tokens.refreshToken);
 
     return tokens;
   }
 
-  async updateRefreshToken(userId: string, refreshToken: string) {
+  async updateRefreshToken(
+    userId: string,
+    refreshToken: string,
+  ): Promise<void> {
     const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
     await this.userRepository.updateRefreshToken(userId, hashedRefreshToken);
   }
 
-  async logout(userId: string) {
+  async logout(userId: string): Promise<IPositiveRequest> {
     return this.userRepository.updateRefreshToken(userId, null);
   }
 
@@ -61,7 +63,11 @@ export class AuthService {
     return this.userRepository.create(registerUserDto);
   }
 
-  async getTokens(userId: string, email: string, role: Role[]) {
+  async getTokens(
+    userId: string,
+    email: string,
+    role: Role[],
+  ): Promise<TokenType> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
@@ -93,7 +99,10 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: string, refreshToken: string): Promise<IToken> {
+  async refreshTokens(
+    userId: string,
+    refreshToken: string,
+  ): Promise<TokenType> {
     const user = await this.userRepository.findOneById(userId);
     if (!user || !user.refreshToken)
       throw new ForbiddenException('Access Denied');

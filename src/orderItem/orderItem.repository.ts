@@ -20,7 +20,7 @@ export class OrderItemRepository {
     createOrderItemDto: CreateOrderItemDto,
   ): Promise<IPositiveRequest> {
     const newOrderItem = new OrderItemEntity(createOrderItemDto);
-    this.orderItemEntity.save(newOrderItem);
+    await this.orderItemEntity.save(newOrderItem);
 
     return { success: true };
   }
@@ -30,7 +30,7 @@ export class OrderItemRepository {
       where: { productId: productId },
     });
 
-    if (!searchOrder) {
+    if (!(await searchOrder)) {
       throw new HttpException('Order is not exist', HttpStatus.NOT_FOUND);
     }
 

@@ -20,7 +20,7 @@ import { UsersService } from './users.service';
   exports: [UsersService, UserRepository],
 })
 export class UsersModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer): void {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes({ path: 'users/:id', method: RequestMethod.GET });

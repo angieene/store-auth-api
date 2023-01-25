@@ -6,7 +6,7 @@ import { UserRepository } from 'src/users/user.repository';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   constructor(private userRepository: UserRepository) {}
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { userId } = req.params;
 
     await this.userRepository.updateUserFirstname(userId);

@@ -7,7 +7,7 @@ import { Role } from 'src/core/enums/userRoles.enum';
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
-  matchRoles(roles: Role[], user: any) {
+  matchRoles(roles: Role[], user: any): boolean {
     return roles.some((el) => el === user.role);
   }
 

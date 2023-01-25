@@ -1,8 +1,10 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
+import { TODO_ANY } from 'src/core/types/main';
+
 export const User = createParamDecorator(
   (_: unknown, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
+    const request: TODO_ANY = ctx.switchToHttp().getRequest();
 
     return request.user;
   },

@@ -46,7 +46,7 @@ export class ProductRepository {
       .getMany();
   }
 
-  async findOne(productId: string) {
+  async findOne(productId: string): Promise<ProductEntity> {
     const searchProduct = await this.productEntity.findOne({
       where: { id: productId },
     });
@@ -113,9 +113,6 @@ export class ProductRepository {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-
-    return {
-      success: true,
-    };
+    return { success: true };
   }
 }

@@ -8,7 +8,7 @@ import validator from 'validator';
 
 @Injectable()
 export class IdValidationPipe implements PipeTransform {
-  transform(value: string, metadata: ArgumentMetadata) {
+  transform(value: string, metadata: ArgumentMetadata): string {
     if (metadata.type !== 'param') {
       return value;
     }

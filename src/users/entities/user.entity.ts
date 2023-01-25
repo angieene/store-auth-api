@@ -55,7 +55,7 @@ export class UserEntity extends BaseEntity {
   @OneToMany(() => OrderItemEntity, (orderItems) => orderItems.user)
   orderItems: OrderItemEntity[];
 
-  @BeforeInsert() async hashPassword() {
+  @BeforeInsert() async hashPassword(): Promise<void> {
     this.password = await bcrypt.hash(this.password, 10);
   }
 }

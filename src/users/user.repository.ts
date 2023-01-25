@@ -78,7 +78,7 @@ export class UserRepository {
       },
     });
 
-    if (!user) {
+    if (!(await user)) {
       throw new HttpException(
         'Invalid email or password',
         HttpStatus.NOT_FOUND,
@@ -87,7 +87,7 @@ export class UserRepository {
     return user;
   }
   async findOneByEmail(userEmail: string): Promise<UserEntity> {
-    const user = this.userEntity.findOne({
+    const user = await this.userEntity.findOne({
       where: { email: userEmail },
     });
 
@@ -138,7 +138,6 @@ export class UserRepository {
     if (!searchUser) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
-
     return searchUser;
   }
 
@@ -159,7 +158,7 @@ export class UserRepository {
     };
   }
 
-  async updateUserFirstname(userId: string) {
+  async updateUserFirstname(userId: string): Promise<IPositiveRequest> {
     await this.userEntity
       .createQueryBuilder()
       .update('users')
@@ -167,10 +166,13 @@ export class UserRepository {
       .where({ id: userId })
       .execute();
 
-    return { succes: true };
+    return { success: true };
   }
 
-  async updateRefreshToken(userId: string, token: string) {
+  async updateRefreshToken(
+    userId: string,
+    token: string,
+  ): Promise<IPositiveRequest> {
     await this.userEntity
       .createQueryBuilder()
       .update('users')
@@ -178,6 +180,6 @@ export class UserRepository {
       .where({ id: userId })
       .execute();
 
-    return { succes: true };
+    return { success: true };
   }
 }

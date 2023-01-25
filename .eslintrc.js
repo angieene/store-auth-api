@@ -1,3 +1,5 @@
+const { off } = require('process');
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -8,6 +10,7 @@ module.exports = {
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
@@ -24,6 +27,8 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        "A function whose declared type is neither 'void' nor 'any' must return a value": 0,
+        '@typescript-eslint/explicit-function-return-type': 'error',
         'import/order': [
           'error',
           {
@@ -47,13 +52,15 @@ module.exports = {
     },
   ],
   rules: {
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/ban-types': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
     'import/no-named-as-default-member': 'off',
     'import/no-named-as-default': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],

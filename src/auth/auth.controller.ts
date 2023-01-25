@@ -75,24 +75,24 @@ export class AuthController {
   })
   @UseGuards(JWTAuthGuard)
   @Get('profile')
-  async getProfile(@User() user: UserEntity): Promise<RegisterUserDto> {
+  getProfile(@User() user: UserEntity): RegisterUserDto {
     return user;
   }
 
   @ApiBearerAuth('JWT-auth')
   @UseGuards(JWTAuthGuard)
   @Get('logout')
-  async logout(@User() user: UserEntity) {
+  async logout(@User() user: UserEntity): Promise<IPositiveRequest> {
     return this.authService.logout(user.id);
   }
 
   @ApiBearerAuth('JWT-auth')
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
-  async refreshTokens(@Req() req) {
-    const token = req.user.refreshToken;
+  async refreshTokens(@Req() req): Promise<TokenType> {
+    const token: string = req.user.refreshToken;
 
-    const decode = this.jwtService.verify(token, {
+    const decode = await this.jwtService.verify(token, {
       secret: process.env.JWT_REFRESH_SECRET,
     });
 

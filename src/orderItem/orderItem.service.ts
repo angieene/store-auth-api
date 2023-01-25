@@ -30,7 +30,7 @@ export class OrderItemService {
       const newOrderAmount = amount + searchOrder.amount;
 
       if (newOrderAmount < searchProduct.stock) {
-        this.updateAmount(searchOrder.id, newOrderAmount);
+        await this.updateAmount(searchOrder.id, newOrderAmount);
 
         const newProductAmount = searchProduct.stock - amount;
         await this.productRepository.updateStock(productId, newProductAmount);
@@ -120,7 +120,7 @@ export class OrderItemService {
 
     const searchProduct = await this.productRepository.findOne(productId);
     const newProductAmount = searchProduct.stock + amount;
-    this.productRepository.updateStock(productId, newProductAmount);
+    await this.productRepository.updateStock(productId, newProductAmount);
 
     return {
       success: true,

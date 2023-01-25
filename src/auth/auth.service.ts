@@ -14,6 +14,7 @@ import { UserRepository } from 'src/users/user.repository';
 
 import { LoginUserDTO } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { IToken } from './types/token.interface';
 
 @Injectable()
 export class AuthService {
@@ -92,7 +93,7 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: string, refreshToken: string) {
+  async refreshTokens(userId: string, refreshToken: string): Promise<IToken> {
     const user = await this.userRepository.findOneById(userId);
     if (!user || !user.refreshToken)
       throw new ForbiddenException('Access Denied');
@@ -104,7 +105,5 @@ export class AuthService {
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
     const tokens = await this.getTokens(user.id, user.email, user.role);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
-
-    return tokens;
   }
 }

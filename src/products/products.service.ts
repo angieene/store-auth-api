@@ -22,7 +22,7 @@ export class ProductsService {
     return this.productRepository.findAllPaginate(paginateProductsDto);
   }
 
-  async findOne(productId: string) {
+  async findOne(productId: string): Promise<ProductEntity> {
     return this.productRepository.findOne(productId);
   }
 
@@ -36,7 +36,9 @@ export class ProductsService {
   async updateStock(
     productId: string,
     newStock: number,
-  ): Promise<IPositiveRequest> {}
+  ): Promise<IPositiveRequest> {
+    return this.productRepository.updateStock(productId, newStock);
+  }
 
   async remove(productId: string): Promise<IPositiveRequest> {
     return this.productRepository.remove(productId);

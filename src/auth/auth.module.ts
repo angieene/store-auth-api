@@ -15,11 +15,6 @@ import { RefreshTokenStrategy } from './refreshToken.strategy';
   imports: [
     TypeOrmModule.forFeature([UserRepository]),
     UsersModule,
-    // PassportModule.register({
-    //   defaultStrategy: 'jwt',
-    //   property: 'users',
-    //   session: true,
-    // }),
     PassportModule.register({}),
     JwtModule.register({}),
   ],

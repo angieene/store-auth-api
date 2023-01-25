@@ -36,9 +36,7 @@ export class ProductsService {
   async updateStock(
     productId: string,
     newStock: number,
-  ): Promise<IPositiveRequest> {
-    return this.productRepository.updateStock(productId, newStock);
-  }
+  ): Promise<IPositiveRequest> {}
 
   async remove(productId: string): Promise<IPositiveRequest> {
     return this.productRepository.remove(productId);

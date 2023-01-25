@@ -44,8 +44,6 @@ export class AuthService {
 
     const tokens = await this.getTokens(id, email, role);
     await this.updateRefreshToken(id, tokens.refreshToken);
-
-    return tokens;
   }
 
   async updateRefreshToken(userId: string, refreshToken: string) {
@@ -105,5 +103,6 @@ export class AuthService {
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
     const tokens = await this.getTokens(user.id, user.email, user.role);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
+    return tokens;
   }
 }

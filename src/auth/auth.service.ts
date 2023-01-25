@@ -70,7 +70,7 @@ export class AuthService {
         },
         {
           secret: process.env.JWT_SECRET,
-          expiresIn: '5m',
+          expiresIn: '20m',
         },
       ),
       this.jwtService.signAsync(

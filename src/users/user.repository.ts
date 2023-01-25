@@ -3,6 +3,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
@@ -11,6 +12,8 @@ import { Repository } from 'typeorm';
 import { PaginateUsersDto } from './dto/paginate-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
+
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserRepository {
@@ -29,7 +32,6 @@ export class UserRepository {
     }
 
     const newUser = new UserEntity(registerUserDto);
-
     await this.userEntity.save(newUser);
 
     return { success: true };
@@ -101,18 +103,30 @@ export class UserRepository {
     user: UserEntity,
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
-    const equalEmail = this.findOnlyPassword(user.email);
+    const searchUser = await this.findOneById(user.id);
 
-    if (equalEmail) {
-      throw new BadRequestException('Email is already used');
+    if (!searchUser) {
+      throw new NotFoundException('User not found');
     }
 
-    Object.assign(user, updateUserDto);
-    user.updatedAt = new Date();
+    if (updateUserDto.email) {
+      const equalEmail = await this.findOneByEmail(user.email);
 
-    await this.userEntity.save(user);
+      if (!equalEmail) {
+        throw new BadRequestException('Email is already used');
+      }
+    }
 
-    return user;
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
+    searchUser.updatedAt = new Date();
+    Object.assign(searchUser, updateUserDto);
+
+    const newUser = await this.userEntity.save(searchUser);
+
+    return newUser;
   }
 
   async findByPayload(email): Promise<UserEntity> {

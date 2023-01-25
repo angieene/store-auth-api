@@ -6,14 +6,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { IPositiveRequest } from 'src/core/types/main';
-import { Repository } from 'typeorm';
 import { PaginateUsersDto } from './dto/paginate-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
-
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserRepository {
@@ -63,7 +62,6 @@ export class UserRepository {
     if (!searchUser) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    return searchUser;
   }
 
   async findOnlyPassword(userEmail: string): Promise<UserEntity> {

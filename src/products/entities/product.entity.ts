@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { BaseEntity } from 'src/core/entities/base.entity';
 import { OrderItemEntity } from 'src/orderItem/entities/orderItem.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
 
 @Entity('products')
 export class ProductEntity extends BaseEntity {

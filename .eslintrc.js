@@ -21,7 +21,6 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   overrides: [
-    // override 'simple-import-sort' config
     {
       files: ['*.ts', '*.tsx'],
       rules: {
@@ -77,15 +76,9 @@ module.exports = {
   },
   settings: {
     'import/extensions': ['.ts', '.js', '.tsx', '.json', '.json5'],
-    'import/resolver': {
-      'node': {
-        'path': ['srs'],
-        'extensions': ['.ts', '.js', '.tsx', '.json', '.json5'],
-      },
-      alias: {
-        map: [['@', './src']],
-        extensions: ['.ts', '.js', '.tsx', '.json', '.json5'],
-      },
+    "import/resolver": {
+      "typescript": {}
     },
   },
+
 };

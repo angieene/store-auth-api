@@ -36,10 +36,10 @@ module.exports = {
               'index',
             ],
             'newlines-between': 'always',
-            pathGroupsExcludedImportTypes: ["internal"],
+            pathGroupsExcludedImportTypes: ['internal'],
             alphabetize: {
               order: 'asc',
-              caseInsensitive: true
+              caseInsensitive: true,
             },
           },
         ],
@@ -52,6 +52,10 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'import/no-named-as-default-member': 'off',
+    'import/no-named-as-default': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'import/first': 'error',
     camelcase: 0,
@@ -62,6 +66,7 @@ module.exports = {
     'consistent-return': 0,
     'import/newline-after-import': 'error',
     quotes: [2, 'single', { avoidEscape: true }],
+    'comma-dangle': ['error', 'only-multiline'],
     'import/no-duplicates': 'error',
     'import/extensions': [
       'error',
@@ -73,13 +78,16 @@ module.exports = {
         json: 'never',
         json5: 'never',
       },
-    ]
+    ],
+    '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    'import/prefer-default-export': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     'import/extensions': ['.ts', '.js', '.tsx', '.json', '.json5'],
-    "import/resolver": {
-      "typescript": {}
+    'import/resolver': {
+      typescript: {},
     },
   },
-
 };

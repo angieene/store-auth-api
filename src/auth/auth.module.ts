@@ -8,20 +8,22 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
+import { RefreshTokenStrategy } from './refreshToken.strategy';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserRepository]),
     UsersModule,
-    PassportModule,
-    JwtModule.register({
-      // secret: process.env.JWT_SECRET,
-      secret: 'jwt-secret',
-      signOptions: { expiresIn: '1h' },
-    }),
+    // PassportModule.register({
+    //   defaultStrategy: 'jwt',
+    //   property: 'users',
+    //   session: true,
+    // }),
+    PassportModule.register({}),
+    JwtModule.register({}),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, RefreshTokenStrategy],
   exports: [PassportModule],
 })
 export class AuthModule {}

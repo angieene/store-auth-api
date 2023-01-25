@@ -5,7 +5,9 @@ import {
   Get,
   HttpStatus,
   UseGuards,
+  Req,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -23,12 +25,15 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { LoginUserDTO } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JWTAuthGuard } from './guards/jwt-auth.guard';
+import { RefreshTokenGuard } from './guards/refresh-token.guard';
 
 @ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
+  constructor(
+    private readonly authService: AuthService,
+    private jwtService: JwtService,
+  ) {}
   @ApiOperation({ summary: 'Log in' })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -71,5 +76,25 @@ export class AuthController {
   @Get('profile')
   async getProfile(@User() user: UserEntity): Promise<RegisterUserDto> {
     return user;
+  }
+
+  @ApiBearerAuth('JWT-auth')
+  @UseGuards(JWTAuthGuard)
+  @Get('logout')
+  async logout(@User() user: UserEntity) {
+    return this.authService.logout(user.id);
+  }
+
+  @ApiBearerAuth('JWT-auth')
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  async refreshTokens(@Req() req) {
+    const token = req.user.refreshToken;
+
+    const decode = this.jwtService.verify(token, {
+      secret: process.env.JWT_REFRESH_SECRET,
+    });
+
+    return this.authService.refreshTokens(decode.id, token);
   }
 }

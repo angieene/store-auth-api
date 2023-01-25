@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEnum,
@@ -44,5 +44,11 @@ export class RegisterUserDto {
   })
   @IsOptional()
   @IsEnum(Role)
-  role: Role[];
+  role?: Role[];
+
+  @ApiPropertyOptional({ type: String, name: 'refreshToken' })
+  @IsOptional()
+  @IsString()
+  @MinLength(5)
+  refreshToken?: string;
 }

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/core/entities/base.entity';
 import { Role } from 'src/core/enums/userRoles.enum';
 import { OrderItemEntity } from 'src/orderItem/entities/orderItem.entity';
@@ -41,6 +42,14 @@ export class UserEntity extends BaseEntity {
     default: Role.Guest,
   })
   role: Role[];
+
+  @ApiProperty({ type: String })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  @Exclude()
+  public refreshToken?: string;
 
   @ApiProperty({ type: () => OrderItemEntity, required: false })
   @OneToMany(() => OrderItemEntity, (orderItems) => orderItems.user)

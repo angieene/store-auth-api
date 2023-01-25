@@ -25,7 +25,7 @@ export class UsersService {
   }
 
   async findOneByEmail(userEmail: string): Promise<UserEntity> {
-    return this.userRepository.findOneByEmail(userEmail);
+    return this.userRepository.findOnlyPassword(userEmail);
   }
 
   async update(

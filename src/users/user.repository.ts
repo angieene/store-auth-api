@@ -64,12 +64,28 @@ export class UserRepository {
     return searchUser;
   }
 
-  async findOneByEmail(userEmail: string): Promise<UserEntity> {
+  async findOnlyPassword(userEmail: string): Promise<UserEntity> {
     const user = this.userEntity.findOne({
       where: { email: userEmail },
       select: {
         password: true,
+        id: true,
+        role: true,
+        email: true,
       },
+    });
+
+    if (!user) {
+      throw new HttpException(
+        'Invalid email or password',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return user;
+  }
+  async findOneByEmail(userEmail: string): Promise<UserEntity> {
+    const user = this.userEntity.findOne({
+      where: { email: userEmail },
     });
 
     if (!user) {
@@ -85,7 +101,7 @@ export class UserRepository {
     user: UserEntity,
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
-    const equalEmail = this.findOneByEmail(user.email);
+    const equalEmail = this.findOnlyPassword(user.email);
 
     if (equalEmail) {
       throw new BadRequestException('Email is already used');
@@ -133,6 +149,17 @@ export class UserRepository {
       .createQueryBuilder()
       .update('users')
       .set({ firstname: 'middleware' })
+      .where({ id: userId })
+      .execute();
+
+    return { succes: true };
+  }
+
+  async updateRefreshToken(userId: string, token: string) {
+    await this.userEntity
+      .createQueryBuilder()
+      .update('users')
+      .set({ refreshToken: token })
       .where({ id: userId })
       .execute();
 

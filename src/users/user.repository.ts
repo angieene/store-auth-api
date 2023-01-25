@@ -138,8 +138,6 @@ export class UserRepository {
     if (!searchUser) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
-
-    return searchUser;
   }
 
   async remove(userId: string): Promise<IPositiveRequest> {

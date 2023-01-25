@@ -9,28 +9,28 @@ import {
 } from 'class-validator';
 
 export class UpdateUserDto {
-  @ApiPropertyOptional({ type: String, name: 'Firstname' })
+  @ApiPropertyOptional({ type: String, name: 'firstname' })
   @IsNotEmpty()
   @IsString()
   @IsOptional()
   @MaxLength(200)
   firstname?: string;
 
-  @ApiPropertyOptional({ type: String, name: 'Lastname' })
+  @ApiPropertyOptional({ type: String, name: 'lastname' })
   @IsNotEmpty()
   @IsOptional()
   @IsString()
   @MaxLength(200)
   lastname?: string;
 
-  @ApiPropertyOptional({ type: String, name: 'Email' })
+  @ApiPropertyOptional({ type: String, name: 'email' })
   @IsNotEmpty()
   @IsString()
   @IsOptional()
   @IsEmail()
   email?: string;
 
-  @ApiPropertyOptional({ type: String, name: 'Password' })
+  @ApiPropertyOptional({ type: String, name: 'password' })
   @IsString()
   @IsNotEmpty()
   @MinLength(5)

@@ -152,6 +152,10 @@ export class UserRepository {
     if (deletedUser.affected === 0) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+
+    return {
+      success: true,
+    };
   }
 
   async updateUserFirstname(userId: string) {
